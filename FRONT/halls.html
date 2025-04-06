@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Halls</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Exam Halls</h2>
+    <button onclick="addHall()">Add Hall</button>
+    <ul id="hallList"></ul>
+
+    <script>
+        async function fetchHalls() {
+            const response = await fetch("/api/halls");
+            const data = await response.json();
+            const hallList = document.getElementById("hallList");
+            hallList.innerHTML = "";
+            data.halls.forEach(hall => {
+                const li = document.createElement("li");
+                li.innerText = hall.hall_name;
+                hallList.appendChild(li);
+            });
+        }
+
+        async function addHall() {
+            const hallName = prompt("Enter Hall Name:");
+            if (hallName) {
+                try {
+                    await fetch("/api/halls", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ hall_name: hallName })
+                    });
+                    alert("Hall added successfully");
+                    fetchHalls();
+                } catch (error) {
+                    alert("Failed to add hall.");
+                    console.error(error);
+                }
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchHalls);
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f7f9fc;
+    }
+
+    .dashboard {
+      text-align: center;
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      margin: 15px 0;
+    }
+
+    ul li a {
+      font-size: 1.1rem;
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    ul li a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <h2>Exam Hall Seating Dashboard</h2>
+    <ul>
+      <li><a href="upload.html">Upload Student Data</a></li>
+      <li><a href="seating.html">Seating Arrangement</a></li>
+      <li><a href="halls.html">Manage Halls</a></li>
+      <li><a href="report.html">Generate Report</a></li>
+    </ul>
+  </div>
+</body>
+</html>
