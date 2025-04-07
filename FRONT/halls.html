@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manage Exam Halls</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f3f4f6;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      margin-top: 50px;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #374151;
+    }
+
+    form label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      color: #4b5563;
+      font-weight: 500;
+    }
+
+    form input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      background-color: #2563eb;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #1d4ed8;
+    }
+
+    .success-msg {
+      color: green;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Add Exam Hall</h2>
+    <form id="hallForm">
+      <label for="hall_name">Hall Name:</label>
+      <input type="text" id="hall_name" required>
+
+      <label for="department">Department:</label>
+      <input type="text" id="department" required>
+
+      <label for="class">Class:</label>
+      <input type="text" id="class" required>
+
+      <label for="benches">Total Benches:</label>
+      <input type="number" id="benches" required>
+
+      <label for="capacity">Bench Capacity:</label>
+      <input type="number" id="capacity" required>
+
+      <label for="rows">Number of Rows:</label>
+      <input type="number" id="rows" required>
+
+      <label for="columns">Number of Columns:</label>
+      <input type="number" id="columns" required>
+
+      <button type="submit">Add Hall</button>
+      <div class="success-msg" id="message"></div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("hallForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const data = {
+        hall_name: document.getElementById("hall_name").value,
+        department: document.getElementById("department").value,
+        class: document.getElementById("class").value,
+        total_benches: parseInt(document.getElementById("benches").value),
+        bench_capacity: parseInt(document.getElementById("capacity").value),
+        rows: parseInt(document.getElementById("rows").value),
+        columns: parseInt(document.getElementById("columns").value)
+      };
+
+      const response = await fetch("http://localhost:5000/api/halls", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        document.getElementById("message").innerText = "Hall added successfully!";
+        document.getElementById("hallForm").reset();
+      } else {
+        document.getElementById("message").innerText = "Error adding hall.";
+      }
+    });
+  </script>
+</body>
+</html>
